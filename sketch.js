@@ -11,7 +11,7 @@ function setup() {
 
     particleCount = 5000;
     for (var i = 0; i < particleCount; i++) {
-        particles.push(new Point(random(1, width - 1), random(1, height - 1)));
+        particles.push(new Point(random(1, width - 1), random(1, height - 1), color(255, 255, 255)));
     }
 }
 
@@ -27,19 +27,19 @@ function draw() {
     stroke(255);
     strokeWeight(1);
 
-    let allParticles = tree.queryRange(new Area(0, 0, width, height));
-    let query = tree.queryRange(new Area(mouseX - 30, mouseY - 30, mouseX + 30, mouseY + 30));
+    let allParticles = tree.query(new Area(0, 0, width, height));
+    let query = tree.query(new Area(mouseX - 30, mouseY - 30, mouseX + 30, mouseY + 30));
 
     strokeWeight(2);
 
     allParticles.forEach((particle, i) => {
+        stroke(particle.userData);
         point(particle.x, particle.y);
+        particle.userData = color(255, 255, 255);
     });
 
-    stroke(255, 0, 0);
-
     query.forEach((particle, i) => {
-        point(particle.x, particle.y);
+        particle.userData = color(255, 0, 0);
     });
 
     strokeWeight(1);

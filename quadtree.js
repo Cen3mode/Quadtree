@@ -1,7 +1,8 @@
 class Point {
-    constructor(x, y) {
+    constructor(x, y, userData) {
         this.x = x;
         this.y = y;
+        this.userData = userData;
     }
 }
 
@@ -95,7 +96,7 @@ class Quadtree {
         this.southEast = new Quadtree(this.nodeCapacity, se);
     }
 
-    queryRange(range) {
+    query(range) {
         let pointsInRange = [];
 
         if (!this.boundry.overlaps(range)) {
@@ -114,10 +115,10 @@ class Quadtree {
 
 
 
-        pointsInRange = pointsInRange.concat(this.northWest.queryRange(range));
-        pointsInRange = pointsInRange.concat(this.northEast.queryRange(range));
-        pointsInRange = pointsInRange.concat(this.southWest.queryRange(range));
-        pointsInRange = pointsInRange.concat(this.southEast.queryRange(range));
+        pointsInRange = pointsInRange.concat(this.northWest.query(range));
+        pointsInRange = pointsInRange.concat(this.northEast.query(range));
+        pointsInRange = pointsInRange.concat(this.southWest.query(range));
+        pointsInRange = pointsInRange.concat(this.southEast.query(range));
 
         return pointsInRange;
 
